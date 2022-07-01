@@ -11,10 +11,10 @@ import ro.itschool.repository.UserRepository;
 import ro.itschool.service.UserService;
 import ro.itschool.service.email.EmailBodyService;
 import ro.itschool.service.email.EmailSender;
-import ro.itschool.service.token.RandomTokenService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,9 +27,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     EmailSender emailSender;
-
-    @Autowired
-    private RandomTokenService randomTokenService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
@@ -65,7 +62,7 @@ public class UserServiceImpl implements UserService {
     public MyUser saveUser(MyUser u) {
         MyUser myUser = new MyUser(u);
         myUser.setPassword(new BCryptPasswordEncoder().encode(u.getPassword()));
-        myUser.setRandomToken(randomTokenService.randomToken());
+        myUser.setRandomToken(UUID.randomUUID().toString());
         emailSender.sendEmail(myUser.getEmail(), "Activate your Account", emailBodyService.emailBody(myUser));
         u.getRoles().forEach(role -> {
             final Role roleByName = roleRepository.findByName(role.getName());
