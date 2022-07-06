@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import ro.itschool.entity.MyUser;
+import ro.itschool.entity.Role;
 import ro.itschool.service.UserService;
+
+import java.util.Collections;
+import java.util.Set;
 
 @Controller
 public class RegisterController {
@@ -32,6 +36,8 @@ public class RegisterController {
     @PostMapping(value = "/register")
     public String registerUser(@ModelAttribute("user") @RequestBody MyUser user) {
         if (user.getPassword().equals(user.getPasswordConfirm())) {
+
+            user.setRoles(Collections.singleton(new Role("ROLE_USER")));
             userService.saveUser(user);
             return "register-success";
         } else {
