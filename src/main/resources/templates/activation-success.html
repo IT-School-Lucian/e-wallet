@@ -16,22 +16,30 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 
+
+    <script>
+        setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                window.location.replace("http://localhost:8080/login");
+            }
+        }, 1000);
+    </script>
 </head>
 <body>
-
-
-
 <br>
 <br>
-
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
             <div class="card-body">
                 <div class="box-footer text-center">
-                    <meta http-equiv="refresh" content="5;url=http://localhost:8080/login" />
+                    <meta http-equiv="refresh" content="http://localhost:8080/login" />
                     <div class="alert alert-success" role="alert">
-                        <p class="font-weight-bold">Your account was activated.</p> You will be redirected in 5 seconds.
+                        <p class="font-weight-bold">Your account was activated.</p>
+                        <div> You will be redirected in <span id="counter">3</span> seconds </div>
                     </div>
                 </div>
             </div>
