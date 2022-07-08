@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class MyUser implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
