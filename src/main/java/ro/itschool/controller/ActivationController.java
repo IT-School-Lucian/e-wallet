@@ -8,6 +8,8 @@ import ro.itschool.entity.MyUser;
 import ro.itschool.repository.UserRepository;
 import ro.itschool.service.UserService;
 
+import java.util.Optional;
+
 @Controller
 public class ActivationController {
 
@@ -19,8 +21,13 @@ public class ActivationController {
 
     @GetMapping(value = "/activation/{randomToken}")
     public String registerForm(@PathVariable String randomToken, Model model) {
-        model.addAttribute("user", userService.findUserByRandomToken(randomToken));
-        return "activation";
+        final Optional<MyUser> userByRandomToken = Optional.ofNullable(userService.findUserByRandomToken(randomToken));
+        if (userByRandomToken.isPresent()) {
+            model.addAttribute("user", userByRandomToken.get());
+            return "activation";
+        } else
+            return "invalid-token";
+
     }
 
     @PostMapping(value = "/activation/{randomToken}")

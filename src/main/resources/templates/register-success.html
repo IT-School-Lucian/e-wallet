@@ -15,28 +15,40 @@
             padding-top: 20vh;
         }
 
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
 <div class="container" align="center">
-<span>
-    <p> You have successfully registered! Please check your email address </p>
-    <b>
-    <a> <p th:text="${user.email}"></p> </a>
+    <div>
+        <p> You have successfully registered! Please check your email address </p>
 
-        <p> following the icons below: </p>
+        <a><p th:text="${user.email}"></p></a>
 
-        <a href="https://login.yahoo.com/" target="_blank">
-<img border="0" alt="Yahoo"
-     src="https://icons-for-free.com/iconfiles/png/512/logo+search+engine+website+yahoo+icon-1320168602217718066.png"
-     width="50" height="50"></a>
+        <p> following the next icon: </p>
 
-        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank">
-<img border="0" alt="Gmail" src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-original-577x577/s3/112013/gmail.png?itok=s1WEASde" width="50" height="50"></a>
+        <div th:if="${#strings.containsIgnoreCase(user.email,'yahoo')}">
+            <a href="https://mail.yahoo.com/" target="_blank">
+                <img border="0" alt="Yahoo"
+                     src="https://icons-for-free.com/iconfiles/png/512/logo+search+engine+website+yahoo+icon-1320168602217718066.png"
+                     width="50" height="50"></a>
+        </div>
+        <div th:if="${#strings.containsIgnoreCase(user.email,'gmail')}">
+            <a href="https://mail.google.com/" target="_blank">
+                <img border="0" alt="Gmail"
+                     src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-original-577x577/s3/112013/gmail.png?itok=s1WEASde"
+                     width="50" height="50"></a>
+        </div>
 
-    </b>
 
-</span><br><br><br>
+    </div>
+    <br><br><br>
 
 </div>
 </body>
