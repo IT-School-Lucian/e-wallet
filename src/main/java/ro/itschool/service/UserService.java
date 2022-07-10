@@ -2,6 +2,7 @@ package ro.itschool.service;
 
 import org.springframework.stereotype.Service;
 import ro.itschool.entity.MyUser;
+
 import java.util.List;
 
 @Service
@@ -20,4 +21,6 @@ public interface UserService {
     void deleteById(long id);
 
     MyUser saveUser(MyUser u);
+
+    void updateUser(MyUser user);
 }

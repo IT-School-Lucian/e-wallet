@@ -1,6 +1,13 @@
 package ro.itschool.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,9 +19,7 @@ import ro.itschool.service.UserService;
 import ro.itschool.service.email.EmailBodyService;
 import ro.itschool.service.email.EmailSender;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -74,4 +79,27 @@ public class UserServiceImpl implements UserService {
         });
         return userRepository.save(myUser);
     }
+
+    public void updateUser(MyUser user) {
+        Set<Role> userRoles = roleRepository.findByUsers(user);
+
+        List<GrantedAuthority> actualAuthorities = getUserAuthority(userRoles);
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), actualAuthorities);
+
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+        userRepository.save(user);
+    }
+
+    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
+        Set<GrantedAuthority> roles = new HashSet<>();
+        for (Role role : userRoles) {
+            roles.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return new ArrayList<>(roles);
+    }
+
 }
+
+

@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
+import java.util.Set;
+
 
 @Entity
 @Getter
@@ -22,6 +23,9 @@ public class Role {
 
     @Column(unique = true, nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<MyUser> users;
 
     public Role(String name) {
         this.name = name;

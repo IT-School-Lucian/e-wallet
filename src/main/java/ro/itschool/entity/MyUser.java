@@ -51,9 +51,6 @@ public class MyUser implements UserDetails {
     @Transient
     private String randomTokenEmail;
 
-    @Transient
-    private Boolean isAdmin;
-
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
