@@ -17,3 +17,8 @@ INSERT INTO `my_user`(`account_non_expired`, `account_non_locked`, `credentials_
     --ADMIN IS AN USER, BUT ALSO AN ADMIN
     INSERT INTO `users_roles`(`user_id`, `role_id`) VALUES (2,1);
     INSERT INTO `users_roles`(`user_id`, `role_id`) VALUES (2,2);
+
+    --INSERT USER BANK ACCOUNT
+    INSERT INTO `bank_account`(`id`, `amount`, `currency`, `is_credit`, `user_id`) VALUES ('d0d2fab3-fbcd-422d-b608-80fc454e01a3',5000,'EUR',0,1);
+    INSERT INTO `bank_account`(`id`, `amount`, `currency`, `is_credit`, `user_id`) VALUES ('d0d2fab3-fbcd-422d-b608-80fc454e02a3',4000,'CHF',0,1);
+    INSERT INTO `bank_account`(`id`, `amount`, `currency`, `is_credit`, `user_id`) VALUES ('d0d2fab3-fbcd-422d-b608-80fc454e03a3',6000,'USD',0,1);
