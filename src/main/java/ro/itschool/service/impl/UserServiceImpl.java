@@ -6,13 +6,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ro.itschool.entity.MyUser;
 import ro.itschool.entity.Role;
+import ro.itschool.repository.AccountRepository;
 import ro.itschool.repository.RoleRepository;
 import ro.itschool.repository.UserRepository;
 import ro.itschool.service.UserService;
@@ -32,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     EmailSender emailSender;
+
+    @Autowired
+    AccountRepository accountRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
@@ -77,6 +79,8 @@ public class UserServiceImpl implements UserService {
                 role.setId(roleByName.getId());
             }
         });
+        if (u.getAccounts() != null)
+            u.getAccounts().forEach(acc -> accountRepository.save(acc));
         return userRepository.save(myUser);
     }
 

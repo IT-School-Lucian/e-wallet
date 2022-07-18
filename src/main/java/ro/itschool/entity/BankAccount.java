@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ro.itschool.model.Currency;
 
-import java.util.Currency;
 import java.util.UUID;
 
 @Getter
@@ -25,6 +25,8 @@ public class BankAccount {
     private Double amount;
 
     private Boolean isCredit;
+
+    private String iban;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

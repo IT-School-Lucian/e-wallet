@@ -58,7 +58,8 @@ public class MyUser implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private Set<BankAccount> accounts;
 
     @Transient
