@@ -66,12 +66,12 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    public MyUser saveUser(MyUser u) {
-        MyUser myUser = new MyUser(u);
-        myUser.setPassword(new BCryptPasswordEncoder().encode(u.getPassword()));
+    public MyUser saveUser(MyUser receivedUser) {
+        MyUser myUser = new MyUser(receivedUser);
+        myUser.setPassword(new BCryptPasswordEncoder().encode(receivedUser.getPassword()));
         myUser.setRandomToken(UUID.randomUUID().toString());
         emailSender.sendEmail(myUser.getEmail(), "Activate your Account", emailBodyService.emailBody(myUser));
-        u.getRoles().forEach(role -> {
+        receivedUser.getRoles().forEach(role -> {
             final Role roleByName = roleRepository.findByName(role.getName());
             if (roleByName == null)
                 myUser.getRoles().add(roleRepository.save(role));
@@ -79,9 +79,13 @@ public class UserServiceImpl implements UserService {
                 role.setId(roleByName.getId());
             }
         });
-        if (u.getAccounts() != null)
-            u.getAccounts().forEach(acc -> accountRepository.save(acc));
-        return userRepository.save(myUser);
+        final MyUser user = userRepository.save(myUser);
+        receivedUser.getAccounts()
+                .forEach(acc -> {
+                    acc.setUser(user);
+                    accountRepository.save(acc);
+                });
+        return user;
     }
 
     public void updateUser(MyUser user) {

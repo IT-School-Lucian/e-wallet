@@ -2,15 +2,16 @@ package ro.itschool.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.iban4j.CountryCode;
+import org.iban4j.Iban;
 import ro.itschool.model.Currency;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 public class BankAccount {
     //UUID (Universally Unique Identifier), also known as GUID (Globally Unique Identifier) represents
@@ -28,8 +29,15 @@ public class BankAccount {
 
     private String iban;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    private LocalDateTime createdAt;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private MyUser user;
 
+    public BankAccount() {
+        this.iban = Iban.random(CountryCode.RO).toString();
+        this.createdAt = LocalDateTime.now();
+        this.amount = 0D;
+    }
 }

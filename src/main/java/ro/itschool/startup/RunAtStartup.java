@@ -12,6 +12,7 @@ import ro.itschool.entity.Role;
 import ro.itschool.model.Currency;
 import ro.itschool.service.UserService;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,13 +35,12 @@ public class RunAtStartup {
         myUser.setEnabled(true);
         myUser.setAccountNonExpired(true);
         myUser.setAccountNonLocked(true);
+        myUser.setCredentialsNonExpired(true);
         myUser.setEmail("user@gmail.com");
         myUser.setFullName("Userescu Userila");
         myUser.setPasswordConfirm("password");
         myUser.setRandomTokenEmail("randomToken");
 
-
-        MyUser savedUser = userService.saveUser(myUser);
 
         Set<BankAccount> accounts = new HashSet<>();
         BankAccount bankAccount = new BankAccount();
@@ -48,12 +48,24 @@ public class RunAtStartup {
         bankAccount.setCurrency(Currency.EUR);
         bankAccount.setIsCredit(true);
         Iban iban = Iban.random(CountryCode.RO);
-        bankAccount.setUser(savedUser);
+        bankAccount.setUser(myUser);
         bankAccount.setIban(iban.toString());
-        accounts.add(bankAccount);
-        savedUser.setAccounts(accounts);
+        bankAccount.setCreatedAt(LocalDateTime.now());
 
-        userService.saveUser(savedUser);
+        BankAccount bankAccount2 = new BankAccount();
+        bankAccount2.setAmount(11000D);
+        bankAccount2.setCurrency(Currency.CHF);
+        bankAccount2.setIsCredit(false);
+        Iban iban2 = Iban.random(CountryCode.RO);
+        bankAccount2.setUser(myUser);
+        bankAccount2.setIban(iban2.toString());
+        bankAccount2.setCreatedAt(LocalDateTime.now());
+
+        accounts.add(bankAccount);
+        accounts.add(bankAccount2);
+        myUser.setAccounts(accounts);
+
+        userService.saveUser(myUser);
 
     }
 
