@@ -1,0 +1,35 @@
+<form action="#" th:action="@{/modals/transfer-money}" th:object="${transferMoneyRequest}" method="post">
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="fromAccount">From: </label>
+        <div class="dropdown col-sm-8" id="fromAccount">
+            <select class="btn light dropdown-toggle text-center" th:field="*{fromIban}">
+                <option class="dropdown-item text-center" th:each="account : ${accounts}"
+                        th:value="${account}" th:text="${account.iban}">
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="amount" class="col-sm-4 col-form-label">Amount: </label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="amount" th:field="*{amount}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="toAccount">To: </label>
+        <div class="dropdown col-sm-8" id="toAccount">
+            <select class="btn light dropdown-toggle text-center" th:field="*{toIban}">
+                <option class="dropdown-item text-center" th:each="account : ${accounts}"
+                        th:value="${account}" th:text="${account.iban}"></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</form>

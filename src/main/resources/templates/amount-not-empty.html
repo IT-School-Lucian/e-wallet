@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Amount not empty</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 150;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #343a40!important;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 50px 10px 50px 10px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 24px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+<!--  .sidenav {padding-top: 15px;}-->
+  .sidenav a {font-size: 14px;}
+}
+
+    </style>
+</head>
+<body>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-2">
+        <div id="mySidenav" class="sidenav">
+            <!--    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
+            <a href="#" data-toggle="modal" data-target="#addAccountModal1">Add account</a>
+            <a href="#">Transfer money</a>
+            <a href="#">Pay a bill</a>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <!-- Navigation -->
+
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="nav-link" href="/users">All Users</a>-->
+        </div>
+
+
+        <div>
+            <div class="container">
+                <div class="col-md-11">
+                    <div class="alert alert-danger" role="alert">
+                        Only accounts with amount 0 can be deleted. <br>
+                        <a th:href="@{/index}" class="alert-link">Go back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

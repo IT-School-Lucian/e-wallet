@@ -100,6 +100,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();
         for (Role role : userRoles) {

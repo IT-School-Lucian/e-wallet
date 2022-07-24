@@ -52,18 +52,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     </style>
 </head>
 
@@ -94,10 +82,8 @@ body {
 <div class="row">
     <div class="col-md-2">
         <div id="mySidenav" class="sidenav">
-            <!--    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
-            <a href="#" data-toggle="modal" data-target="#addAccountModal1">Add account</a>
-            <a href="#">Remove account</a>
-            <a href="#">Transfer money</a>
+            <a href="#" data-toggle="modal" data-target="#add-account-modal">Add account</a>
+            <a href="#" data-toggle="modal" data-target="#transfer-money-modal">Transfer money</a>
             <a href="#">Pay a bill</a>
         </div>
     </div>
@@ -122,6 +108,7 @@ body {
                                     <th> Amount</th>
                                     <th> Currency</th>
                                     <th> Credit Card</th>
+                                    <th><span class="fa-solid fa-triangle-exclamation"></span>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -133,6 +120,9 @@ body {
                                               class="fa-solid fa-square-xmark"></span>
                                         <span th:if="${account.isCredit}"
                                               class="fa-solid fa-square-check"></span>
+                                    </td>
+                                    <td><a th:href="@{'/account/delete/' + ${account.iban}}"
+                                           class="fa-solid fa-trash"></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -147,68 +137,37 @@ body {
         <div class="container">
             <div class="row mt-5">
                 <div class="col">
-                    <th:block th:replace="_modals :: modal('addAccountModal1')">modal</th:block>
+                    <th:block th:replace="_modals :: modal('add-account-modal')">Add new account</th:block>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col">
+                    <th:block th:replace="_modals :: modal('transfer-money-modal')">Transfer money internal</th:block>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-1"></div>
 </div>
-<script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "150px";
-}
-
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</script>
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 <script>
-    $('#addAccountModal1').on('show.bs.modal', function () {
-        $.get("/modals/addBankAccount", function (data) {
-            $('#addAccountModal1').find('.modal-body').html(data);
+    $('#add-account-modal').on('show.bs.modal', function () {
+        $.get("/modals/add-bank-account", function (data) {
+            $('#add-account-modal').find('.modal-body').html(data);
         })
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    $('#transfer-money-modal').on('show.bs.modal', function () {
+        $.get("/modals/transfer-money", function (data) {
+            $('#transfer-money-modal').find('.modal-body').html(data);
+        })
+    });
 
 
 </script>

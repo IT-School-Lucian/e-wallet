@@ -3,6 +3,7 @@ package ro.itschool.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import ro.itschool.model.Currency;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@ToString
 public class BankAccount {
     //UUID (Universally Unique Identifier), also known as GUID (Globally Unique Identifier) represents
 // a 128-bit long value that is unique for all practical purposes.
@@ -33,6 +35,7 @@ public class BankAccount {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
     private MyUser user;
 
     public BankAccount() {
@@ -40,4 +43,6 @@ public class BankAccount {
         this.createdAt = LocalDateTime.now();
         this.amount = 0D;
     }
+
+
 }

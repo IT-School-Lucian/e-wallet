@@ -23,4 +23,5 @@ public interface UserService {
     MyUser saveUser(MyUser u);
 
     void updateUser(MyUser user);
+
 }
