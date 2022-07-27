@@ -1,8 +1,8 @@
 package ro.itschool.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,6 @@ import ro.itschool.repository.RoleRepository;
 import ro.itschool.repository.UserRepository;
 import ro.itschool.service.UserService;
 
-import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -69,12 +68,12 @@ public class UserController {
     //----------REMOVE ADMIN ROLE FROM USER-----------------------------------------
     @RequestMapping("/remove-admin-role/{id}")
     public String removeAdminRoleFromUser(@PathVariable("id") Long id) {
+        String username = getCurrentUserDetails();
         final Optional<MyUser> user = userRepository.findById(id);
         if (user.isPresent()) {
             final Role role = roleRepository.findByName("ROLE_ADMIN");
             user.get().getRoles().remove(role);
             userService.updateUser(user.get());
-            String username = getCurrentUserDetails();
             //Check is logged user is the same as selected user
             if (username.equals(user.get().getUsername()))
                 return "redirect:/logout";
@@ -89,14 +88,8 @@ public class UserController {
 
     //----------------------PRIVATE METHODS-----------------------------------------
     private String getCurrentUserDetails() {
-        Principal principal = SecurityContextHolder.getContext().getAuthentication();
-        String username;
-        if (principal instanceof UserDetails userDetails) {
-            username = userDetails.getUsername();
-        } else {
-            username = principal.toString();
-        }
-        return username;
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        return loggedInUser.getName();
     }
 
 }

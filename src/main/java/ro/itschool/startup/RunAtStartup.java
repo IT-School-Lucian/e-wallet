@@ -26,7 +26,7 @@ public class RunAtStartup {
     public void contextRefreshedEvent() {
         MyUser myUser = new MyUser();
         myUser.setUsername("user0");
-        myUser.setPassword("password");
+        myUser.setPassword("user0");
         myUser.setRandomToken("randomToken");
         final Role roleUser = new Role("ROLE_USER");
         final Set<Role> roles = new HashSet<>();
@@ -38,7 +38,7 @@ public class RunAtStartup {
         myUser.setCredentialsNonExpired(true);
         myUser.setEmail("user@gmail.com");
         myUser.setFullName("Userescu Userila");
-        myUser.setPasswordConfirm("password");
+        myUser.setPasswordConfirm("user0");
         myUser.setRandomTokenEmail("randomToken");
 
 
@@ -75,7 +75,7 @@ public class RunAtStartup {
 
         MyUser myUser = new MyUser();
         myUser.setUsername("admin");
-        myUser.setPassword("password");
+        myUser.setPassword("admin");
         myUser.setRandomToken("randomToken");
         final Set<Role> roles = new HashSet<>();
         roles.add(new Role("ROLE_USER"));
@@ -87,7 +87,7 @@ public class RunAtStartup {
         myUser.setCredentialsNonExpired(true);
         myUser.setEmail("user2@gmail.com");
         myUser.setFullName("Userescu2 Userila2");
-        myUser.setPasswordConfirm("password");
+        myUser.setPasswordConfirm("admin");
         myUser.setRandomTokenEmail("randomToken");
 
 

@@ -7,9 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ro.itschool.entity.MyUser;
 import ro.itschool.entity.Role;
 import ro.itschool.service.UserService;
@@ -26,11 +24,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserService userService;
 
     @Override
-    @Transactional
+//    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         MyUser myUser = userService.findUserByUserName(username);
         List<GrantedAuthority> authorities = getUserAuthority(myUser.getRoles());
-        return buildUserForAuthentication(myUser, authorities);
+        return new MyUser(myUser.getUsername(), myUser.getPassword(),
+                myUser.isEnabled(), myUser.isAccountNonExpired(), myUser.isCredentialsNonExpired(), myUser.isAccountNonLocked(), authorities);
     }
 
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
@@ -39,11 +38,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             roles.add(new SimpleGrantedAuthority(role.getName()));
         }
         return new ArrayList<>(roles);
-    }
-
-    private UserDetails buildUserForAuthentication(MyUser myUser, List<GrantedAuthority> authorities) {
-        return new User(myUser.getUsername(), myUser.getPassword(),
-                myUser.isEnabled(), myUser.isAccountNonExpired(),myUser.isCredentialsNonExpired(), myUser.isAccountNonLocked(), authorities);
     }
 
 }

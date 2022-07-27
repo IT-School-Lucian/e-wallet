@@ -1,23 +1,25 @@
 package ro.itschool.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.io.Serial;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 public class MyUser implements UserDetails {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,6 +66,10 @@ public class MyUser implements UserDetails {
     @Transient
     private String passwordConfirm;
 
+    @Transient
+    private List<GrantedAuthority> authorities = null;
+
+
     public MyUser(MyUser myUser) {
         this.enabled = myUser.isEnabled();
         this.roles = myUser.getRoles();
@@ -76,6 +82,17 @@ public class MyUser implements UserDetails {
         this.email = myUser.getEmail();
     }
 
+    public MyUser(String username, String password, boolean enabled, boolean accountNonExpired,
+                  boolean credentialsNonExpired, boolean accountNonLocked, List<GrantedAuthority> authorities) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.accountNonExpired = accountNonExpired;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.authorities = authorities;
+    }
+
 
     public Long getId() {
         return id;
@@ -85,7 +102,8 @@ public class MyUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
-                .collect(Collectors.toList());
+        return this.authorities;
+//        return getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
+//                .collect(Collectors.toList());
     }
 }

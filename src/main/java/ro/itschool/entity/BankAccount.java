@@ -8,6 +8,8 @@ import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import ro.itschool.model.Currency;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,7 +17,10 @@ import java.util.UUID;
 @Setter
 @Entity
 @ToString
-public class BankAccount {
+public class BankAccount implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1905122041950251207L;
     //UUID (Universally Unique Identifier), also known as GUID (Globally Unique Identifier) represents
 // a 128-bit long value that is unique for all practical purposes.
 // The standard representation of the UUID uses hex digits (octets):
