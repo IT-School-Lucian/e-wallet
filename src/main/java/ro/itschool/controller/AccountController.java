@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ro.itschool.entity.BankAccount;
 import ro.itschool.exception.AmountNotEmptyException;
+import ro.itschool.exception.NotEnoughMoneyInAccount;
 import ro.itschool.model.Currency;
 import ro.itschool.model.TransferMoneyRequest;
 import ro.itschool.service.AccountService;
@@ -47,17 +48,28 @@ public class AccountController {
     //--------------TRANSFER MONEY (MODAL)------------------------------
     @GetMapping("/modals/transfer-money")
     public String transferMoney(Model model) {
-        model.addAttribute("accounts", accountService.getAllAccounts());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final Long userId = userService.findUserByUserName(auth.getName()).getId();
+        model.addAttribute("accounts", accountService.getAllAccountsByUserId(userId));
         model.addAttribute("transferMoneyRequest", new TransferMoneyRequest());
         return "transfer-money-modal";
     }
 
     @PostMapping("/modals/transfer-money")
-    public String transferMoney(@ModelAttribute TransferMoneyRequest transferMoneyRequest) {
-        System.out.println(transferMoneyRequest);
+    public String transferMoney(@ModelAttribute TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount {
+        BankAccount fromAccount = accountService.findByIban(transferMoneyRequest.getFromIban());
 
-        System.out.println(getBankAccountFromString(transferMoneyRequest.getFromIban()));
-        System.out.println(getBankAccountFromString(transferMoneyRequest.getToIban()));
+        Integer amountToTransfer = transferMoneyRequest.getAmount();
+
+        BankAccount toAccount = accountService.findByIban(transferMoneyRequest.getToIban());
+
+        if (amountToTransfer > fromAccount.getAmount()) {
+            throw new NotEnoughMoneyInAccount("Not enough money in account");
+        }
+        fromAccount.setAmount(fromAccount.getAmount() - amountToTransfer);
+        toAccount.setAmount(toAccount.getAmount() + amountToTransfer);
+
+        accountService.saveTransactional(fromAccount, toAccount);
 
         return "redirect:/index";
     }

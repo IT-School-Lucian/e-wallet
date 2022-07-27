@@ -16,4 +16,8 @@ public interface AccountService {
     List<BankAccount> getAllAccounts();
 
     BankAccount findByIban(String iban);
+
+    List<BankAccount> getAllAccountsByUserId(Long userId);
+
+    void saveTransactional(BankAccount fromAccount, BankAccount toAccount);
 }

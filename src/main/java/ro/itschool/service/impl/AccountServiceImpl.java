@@ -2,6 +2,7 @@ package ro.itschool.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ro.itschool.entity.BankAccount;
 import ro.itschool.exception.AmountNotEmptyException;
 import ro.itschool.repository.AccountRepository;
@@ -35,5 +36,17 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public BankAccount findByIban(String iban) {
         return accountRepository.findByIban(iban);
+    }
+
+    @Override
+    public List<BankAccount> getAllAccountsByUserId(Long userId) {
+        return accountRepository.findByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public void saveTransactional(BankAccount fromAccount, BankAccount toAccount) {
+        accountRepository.save(fromAccount);
+        accountRepository.save(toAccount);
     }
 }

@@ -80,11 +80,12 @@ public class UserServiceImpl implements UserService {
             }
         });
         final MyUser user = userRepository.save(myUser);
-        receivedUser.getAccounts()
-                .forEach(acc -> {
-                    acc.setUser(user);
-                    accountRepository.save(acc);
-                });
+        if (receivedUser.getAccounts() != null)
+            receivedUser.getAccounts()
+                    .forEach(acc -> {
+                        acc.setUser(user);
+                        accountRepository.save(acc);
+                    });
         return user;
     }
 
