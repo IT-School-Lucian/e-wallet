@@ -1,2 +1,7 @@
 /target/
 /.idea/
+/mvnw.cmd
+/.mvn/
+/mvnw
+/e-wallet.iml
+/HELP.md
