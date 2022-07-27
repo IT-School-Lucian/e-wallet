@@ -3,6 +3,8 @@ package ro.itschool.service;
 import org.springframework.stereotype.Service;
 import ro.itschool.entity.BankAccount;
 import ro.itschool.exception.AmountNotEmptyException;
+import ro.itschool.exception.NotEnoughMoneyInAccount;
+import ro.itschool.model.TransferMoneyRequest;
 
 import java.util.List;
 
@@ -19,5 +21,5 @@ public interface AccountService {
 
     List<BankAccount> getAllAccountsByUserId(Long userId);
 
-    void saveTransactional(BankAccount fromAccount, BankAccount toAccount);
+    void transferMoney(TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount;
 }

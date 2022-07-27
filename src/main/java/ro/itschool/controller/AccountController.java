@@ -9,19 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import ro.itschool.entity.BankAccount;
 import ro.itschool.exception.AmountNotEmptyException;
 import ro.itschool.exception.NotEnoughMoneyInAccount;
-import ro.itschool.model.Currency;
 import ro.itschool.model.TransferMoneyRequest;
 import ro.itschool.service.AccountService;
 import ro.itschool.service.UserService;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Controller
 public class AccountController {
 
     @Autowired
     private AccountService accountService;
+    
     @Autowired
     private UserService userService;
 
@@ -56,21 +53,12 @@ public class AccountController {
     }
 
     @PostMapping("/modals/transfer-money")
-    public String transferMoney(@ModelAttribute TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount {
-        BankAccount fromAccount = accountService.findByIban(transferMoneyRequest.getFromIban());
-
-        Integer amountToTransfer = transferMoneyRequest.getAmount();
-
-        BankAccount toAccount = accountService.findByIban(transferMoneyRequest.getToIban());
-
-        if (amountToTransfer > fromAccount.getAmount()) {
-            throw new NotEnoughMoneyInAccount("Not enough money in account");
+    public String transferMoney(@ModelAttribute TransferMoneyRequest transferMoneyRequest) {
+        try {
+            accountService.transferMoney(transferMoneyRequest);
+        } catch (NotEnoughMoneyInAccount e) {
+            return "not-enough-money";
         }
-        fromAccount.setAmount(fromAccount.getAmount() - amountToTransfer);
-        toAccount.setAmount(toAccount.getAmount() + amountToTransfer);
-
-        accountService.saveTransactional(fromAccount, toAccount);
-
         return "redirect:/index";
     }
 
@@ -91,20 +79,4 @@ public class AccountController {
 
     //----------------------------------------------------------------------
 
-
-    private BankAccount getBankAccountFromString(String str) {
-        BankAccount bankAccount = new BankAccount();
-        String[] ibanStringArray = str.split(",");
-
-        bankAccount.setId(UUID.fromString(ibanStringArray[0].substring(15)));
-        bankAccount.setCurrency(Currency.valueOf(ibanStringArray[1].substring(10)));
-        bankAccount.setAmount(Double.valueOf(ibanStringArray[2].substring(8)));
-        bankAccount.setIsCredit(Boolean.valueOf(ibanStringArray[3].substring(10)));
-        bankAccount.setIban(ibanStringArray[4].substring(6));
-
-        LocalDateTime dateTime = LocalDateTime.parse(ibanStringArray[5].substring(11, ibanStringArray[5].length() - 1));
-        bankAccount.setCreatedAt(dateTime);
-
-        return bankAccount;
-    }
 }

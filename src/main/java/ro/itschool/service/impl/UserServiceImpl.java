@@ -90,9 +90,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void updateUser(MyUser user) {
-        Set<Role> userRoles = roleRepository.findByUsers(user);
-
-        List<GrantedAuthority> actualAuthorities = getUserAuthority(userRoles);
+        List<GrantedAuthority> actualAuthorities = getUserAuthority(user.getRoles());
 
         Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), actualAuthorities);
 

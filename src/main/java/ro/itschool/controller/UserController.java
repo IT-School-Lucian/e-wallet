@@ -14,6 +14,7 @@ import ro.itschool.repository.RoleRepository;
 import ro.itschool.repository.UserRepository;
 import ro.itschool.service.UserService;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -88,7 +89,7 @@ public class UserController {
 
     //----------------------PRIVATE METHODS-----------------------------------------
     private String getCurrentUserDetails() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
         String username;
         if (principal instanceof UserDetails userDetails) {
             username = userDetails.getUsername();

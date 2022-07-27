@@ -67,26 +67,26 @@ public class RunAtStartup {
 
         userService.saveUser(myUser);
 
-        saveAnotherUser();
+        saveAdminUser();
 
     }
 
-    private void saveAnotherUser() {
+    private void saveAdminUser() {
 
         MyUser myUser = new MyUser();
-        myUser.setUsername("user1");
+        myUser.setUsername("admin");
         myUser.setPassword("password");
         myUser.setRandomToken("randomToken");
-        final Role roleUser = new Role("ROLE_USER");
         final Set<Role> roles = new HashSet<>();
-        roles.add(roleUser);
+        roles.add(new Role("ROLE_USER"));
+        roles.add(new Role("ROLE_ADMIN"));
         myUser.setRoles(roles);
         myUser.setEnabled(true);
         myUser.setAccountNonExpired(true);
         myUser.setAccountNonLocked(true);
         myUser.setCredentialsNonExpired(true);
         myUser.setEmail("user2@gmail.com");
-        myUser.setFullName("Userescu Userila");
+        myUser.setFullName("Userescu2 Userila2");
         myUser.setPasswordConfirm("password");
         myUser.setRandomTokenEmail("randomToken");
 
