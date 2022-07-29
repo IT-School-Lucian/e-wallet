@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
@@ -7,6 +8,69 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
+
+    <style>
+
+    Body { margin: 0; font-family: "Optima", sans-serif, color: #17202a
+    }
+
+    h1 { font-size: 40px; color: #e5e7e9; font-family: "Optima", sans-serif;
+    }
+
+    h2 {font-size: 16px; color: #e5e7e9  ; font-family: "Optima", sans-serif;
+
+    }
+    Body {
+    height: 100%;
+    margin: 0;
+    background-image: url("https://www.carat.fiserv.com/content/dam/carat/us/en/images/hero/blue-design-black-background.png");
+
+    background-repeat: repeat;
+    background-size: 100% auto;
+    background-position: center top;
+    background-attachment: fixed;
+    }
+
+       .button1 {
+  background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  height: 4rem;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+    .button1:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 40px;
+  transition-duration: .1s;
+}
+
+.alert-danger {
+  background-color:#283747;
+  border-color: #154360;
+  color: #2980b9;
+  font-weight: 700;
+  padding: 2rem 1.50rem;
+  margin-bottom: 1.5rem;
+  border-radius: 50rem;
+}
+
+.alert-danger hr {
+  border-top-color: #fdfefe;
+}
+    </style>
+
 </head>
 <body><br><br>
 <div class="container-fluid text-center">
@@ -16,56 +80,62 @@
           style="max-width:280px; margin:0 auto"><br>
 
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Name:</label>
+            <label class="col-sm-4 col-form-label"><h2>Name:</h2></label>
             <div class="col-sm-8">
+                <br>
                 <input type="text" th:field="*{fullName}" id="fullName" required/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Email:</label>
+            <label class="col-sm-4 col-form-label"><h2>Email:</h2></label>
             <div class="col-sm-8">
+                <br>
                 <input type="email" th:field="*{email}" id="email" required minlength="5"/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Username:</label>
+            <label class="col-sm-4 col-form-label"><h2>Username:</h2></label>
             <div class="col-sm-8">
+                <br>
                 <input type="text" th:field="*{username}" id="username" required/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Password:</label>
+            <label class="col-sm-4 col-form-label"><h2>Password:</h2></label>
             <div class="col-sm-8">
+                <br>
                 <input type="password" th:field="*{password}" id="password" required minlength="4"/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Repeat password:</label>
+            <label class="col-sm-4 col-form-label"><h2>Repeat password:</h2></label>
             <div class="col-sm-8">
+                <br>
                 <input type="password" th:field="*{passwordConfirm}" id="passwordConfirm" required minlength="4"/>
-            </div><br>
+            </div>
+            <br>
             <!--            <div th:if="${user.password != user.passwordConfirm}"><b><p class="text-danger">Passwords do not match!</p>-->
             <!--            </b></div>-->
         </div>
-        <div th:if="${user.password != user.passwordConfirm}"class="alert alert-danger" role="alert">
+        <div th:if="${user.password != user.passwordConfirm}" class="alert alert-danger" role="alert">
             <p class="error">Passwords do not match!</p>
         </div>
 
-
         <div>
             <input type="hidden" th:field="*{accountNonExpired}"/>
-            <input type="hidden" th:field="*{accountNonLocked}" />
-            <input type="hidden" th:field="*{credentialsNonExpired}" />
+            <input type="hidden" th:field="*{accountNonLocked}"/>
+            <input type="hidden" th:field="*{credentialsNonExpired}"/>
             <input type="hidden" th:field="*{enabled}"/>
         </div>
 
         <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-success text-body">Register</button>
-        </div><br>
+            <button type="submit" class="button1">Register</button>
+        </div>
+        <br>
 
         <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login
             here</u></a></p>
