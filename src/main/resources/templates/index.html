@@ -6,55 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
-    <style>
+    <link th:href="@{/css/sidenav.css}" rel="stylesheet"/>
 
-   body {
-    margin: 0;
-    font-family: "Optima", sans-serif,
-    height: 100%;
-    }
-
-
-.sidenav {
-  height: 100%;
-  width: 150;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #343a40!important;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidenav a {
-  padding: 50px 10px 50px 10px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 24px;
-  margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-<!--  .sidenav {padding-top: 15px;}-->
-  .sidenav a {font-size: 14px;}
-}
-
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -101,62 +54,61 @@
         <!-- Navigation -->
 
 
-
         <div>
             <div class="container">
-                    <div th:switch="${accounts}">
-                        <div class="col-md-10">
-                            <div th:case="*">
-                                <table class="table table-striped table-responsive-md">
-                                    <thead>
-                                    <tr>
-                                        <th> IBAN</th>
-                                        <th> Amount</th>
-                                        <th> Currency</th>
-                                        <th> Credit Card</th>
-                                        <th><span class="fa-solid fa-triangle-exclamation"></span>Delete</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="account: ${accounts}">
-                                        <td><span th:text="${account.iban}"> IBAN </span></td>
-                                        <td><span th:text="${account.amount}"> Amount </span></td>
-                                        <td><span th:text="${account.currency}"> Currency </span></td>
-                                        <td><span th:unless="${account.isCredit}"
-                                                  class="fa-solid fa-square-xmark"></span>
-                                            <span th:if="${account.isCredit}"
-                                                  class="fa-solid fa-square-check"></span>
-                                        </td>
-                                        <td><a th:href="@{'/account/delete/' + ${account.iban}}"
-                                               class="fa-solid fa-trash"></a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div th:switch="${accounts}">
+                    <div class="col-md-10">
+                        <div th:case="*">
+                            <table class="table table-striped table-responsive-md">
+                                <thead>
+                                <tr>
+                                    <th> IBAN</th>
+                                    <th> Amount</th>
+                                    <th> Currency</th>
+                                    <th> Credit Card</th>
+                                    <th><span class="fa-solid fa-triangle-exclamation"></span>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="account: ${accounts}">
+                                    <td><span th:text="${account.iban}"> IBAN </span></td>
+                                    <td><span th:text="${account.amount}"> Amount </span></td>
+                                    <td><span th:text="${account.currency}"> Currency </span></td>
+                                    <td><span th:unless="${account.isCredit}"
+                                              class="fa-solid fa-square-xmark"></span>
+                                        <span th:if="${account.isCredit}"
+                                              class="fa-solid fa-square-check"></span>
+                                    </td>
+                                    <td><a th:href="@{'/account/delete/' + ${account.iban}}"
+                                           class="fa-solid fa-trash"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col">
-                    <th:block th:replace="_modals :: modal('add-account-modal')">Add new account</th:block>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col">
-                    <th:block th:replace="_modals :: modal('transfer-money-modal')">Transfer money internal</th:block>
-                </div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <th:block th:replace="_modals :: modal('add-account-modal')">Add new account</th:block>
             </div>
         </div>
     </div>
-    <div class="col-md-1"></div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <th:block th:replace="_modals :: modal('transfer-money-modal')">Transfer money internal</th:block>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-1"></div>
 </div>
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
@@ -175,6 +127,8 @@
             $('#transfer-money-modal').find('.modal-body').html(data);
         })
     });
+
+
 
 
 </script>
