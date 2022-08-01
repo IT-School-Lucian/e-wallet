@@ -6,7 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ro.itschool.entity.MyUser;
@@ -15,7 +14,6 @@ import ro.itschool.repository.RoleRepository;
 import ro.itschool.repository.UserRepository;
 import ro.itschool.service.UserService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -33,8 +31,8 @@ public class UserController {
 
     //--------- GET all users for ADMINs only ------------------------------
     @GetMapping("/users")
-    public String getAllUsers(Model model) throws Exception {
-        model.addAttribute("users", userRepository.findAll());
+    public String getAllUsers(Model model, String keyword) throws Exception {
+        model.addAttribute("users", userService.searchUser(keyword));
         model.addAttribute("roles", roleRepository.findAll().stream().map(Role::getName).toList());
         model.addAttribute("adminRole", roleRepository.findAll()
                 .stream()
@@ -85,18 +83,6 @@ public class UserController {
     }
 
     //------------------------------------------------------------------------------
-
-    @GetMapping("/search")
-    public String searchUser(@ModelAttribute MyUser myUser, Model model, String keyword) {
-        if (keyword != null) {
-            List<MyUser> myUserList = userService.searchUser(keyword);
-            model.addAttribute("myUserList", myUserList);
-        } else {
-            List<MyUser> myUserList = userService.findAll();
-            model.addAttribute("myUserList", myUserList);
-        }
-        return "users";
-    }
 
     //----------------------PRIVATE METHODS-----------------------------------------
     private String getCurrentUserDetails() {

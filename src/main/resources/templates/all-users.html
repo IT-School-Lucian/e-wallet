@@ -76,6 +76,7 @@ body {
     border: 1px solid #ccc;
   }
 }
+
     </style>
 
 </head>
@@ -87,14 +88,12 @@ body {
         <a href="/index">Index</a>
         <a href="/logout">Logout</a>
         <div class="search-container">
-        <form th:action="@{/search}" method="get">
-            <input type="text" name="keyword" th:value="${keyword}" placeholder="Search" size="40" >
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
+            <form th:action="@{/users}" method="get">
+                <input type="text" name="keyword" th:value="${keyword}" placeholder="Search" size="40">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
         </div>
     </div>
-
-    This content is only shown to administrators.
 
     <div class="container my-2">
         <div class="card ">
@@ -173,6 +172,7 @@ window.location = 'http://localhost:8080/add-admin-role/' + output.value;
 <!--let output = document.getElementById('removeAdminRole');-->
 <!--window.location = 'http://localhost:8080/remove-admin-role/' + output.value;-->
 <!--}-->
+
 
 </script>
 </body>
