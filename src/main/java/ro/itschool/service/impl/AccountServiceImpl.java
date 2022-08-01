@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ro.itschool.entity.BankAccount;
 import ro.itschool.entity.MyUser;
 import ro.itschool.exception.AmountNotEmptyException;
@@ -56,9 +55,9 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findByUserId(userId);
     }
 
-    @Transactional
     private void saveTransactional(BankAccount fromAccount, BankAccount toAccount) {
         accountRepository.save(fromAccount);
+        //TODO: verify transactional
         accountRepository.save(toAccount);
     }
 
