@@ -31,9 +31,8 @@ public class UserController {
 
     //--------- GET all users for ADMINs only ------------------------------
     @GetMapping("/users")
-    public String getAllUsers(Model model) throws Exception {
-
-        model.addAttribute("users", userRepository.findAll());
+    public String getAllUsers(Model model, String keyword) throws Exception {
+        model.addAttribute("users", userService.searchUser(keyword));
         model.addAttribute("roles", roleRepository.findAll().stream().map(Role::getName).toList());
         model.addAttribute("adminRole", roleRepository.findAll()
                 .stream()
@@ -84,7 +83,6 @@ public class UserController {
     }
 
     //------------------------------------------------------------------------------
-
 
     //----------------------PRIVATE METHODS-----------------------------------------
     private String getCurrentUserDetails() {

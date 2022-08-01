@@ -1,12 +1,76 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><br><br>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <br><br>
     <title>Login page</title>
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
+
+    <style>
+    Body { margin: 0; font-family: "Optima", sans-serif, color: #17202a
+    }
+
+    h1 { font-size: 40px; color: LavenderBlush; font-family: "Optima", sans-serif;
+    }
+
+    h2 { font-size: 15px; color: LavenderBlush; font-family: "Optima", sans-serif;
+    }
+
+    Body {
+    height: 100%;
+    margin: 0;
+    background-image: url("https://www.carat.fiserv.com/content/dam/carat/us/en/images/hero/blue-design-black-background.png");
+
+    background-repeat: repeat;
+    background-size: 100% auto;
+    background-position: center top;
+    background-attachment: fixed;
+    }
+
+    .button1 {
+  background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  height: 4rem;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+    .button1:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 50px;
+  transition-duration: .1s;
+}
+
+.alert-danger {
+  background-color:#283747;
+  border-color: #154360;
+  color: #2980b9;
+  font-weight: 700;
+  padding: 2rem 1.50rem;
+  margin-bottom: 1.5rem;
+  border-radius: 50rem;
+}
+
+.alert-danger hr {
+  border-top-color: #fdfefe;
+}
+    </style>
+
 </head>
 <body>
 <div align="center">
@@ -19,24 +83,28 @@
         <p class="error">Wrong user or password</p>
     </div>
 
-
     <form th:action="@{/login}" method="post">
         <div class="mx-auto">
-            <label class="control-label" for="username">Username</label>:
-            <input type="username" id="username" class="from-control" name="username" autofocus="autofocus"/></div>
+            <label class="control-label" for="username"><h2>Username</h2></label>
+            <input type="username" id="username" class="from-control" name="username"
+                   autofocus="autofocus"/></div>
         <br/>
         <div class="mx-auto">
-            <label class="control-label" for="password">Password</label>:
+            <label class="control-label" for="password"><h2>Password</h2></label>:
             <input type="password" id="password" class="from-control" name="password"/></div>
         <br/>
         <div style="height:5px;">
 
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-success" style="width:80px;">Login</button>
-            <span><a th:href="@{/register}" class="btn btn-success">Register</a> </span>
+            <button type="submit" class="button1" >Login</button>
+        <form action="@{/register}">
+             <button type="button" class="button1" th:onclick="|window.location.href='/register'|">Register</button>
+        </form>
         </div>
     </form>
+
+
 </div>
 </body>
 </html>
