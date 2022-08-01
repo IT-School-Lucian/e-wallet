@@ -12,13 +12,14 @@ import ro.itschool.exception.NotEnoughMoneyInAccount;
 import ro.itschool.model.TransferMoneyRequest;
 import ro.itschool.service.AccountService;
 import ro.itschool.service.UserService;
+import ro.itschool.util.Constants;
 
 @Controller
 public class AccountController {
 
     @Autowired
     private AccountService accountService;
-    
+
     @Autowired
     private UserService userService;
 
@@ -37,7 +38,7 @@ public class AccountController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         account.setUser(userService.findUserByUserName(auth.getName()));
         accountService.save(account);
-        return "redirect:/index";
+        return Constants.REDIRECT_TO_INDEX;
     }
 
     //----------------------------------------------------------------------------------
@@ -59,7 +60,7 @@ public class AccountController {
         } catch (NotEnoughMoneyInAccount e) {
             return "not-enough-money";
         }
-        return "redirect:/index";
+        return Constants.REDIRECT_TO_INDEX;
     }
 
     //----------------------------------------------------------------------------------
@@ -74,7 +75,7 @@ public class AccountController {
         } catch (AmountNotEmptyException e) {
             return "amount-not-empty";
         }
-        return "redirect:/index";
+        return Constants.REDIRECT_TO_INDEX;
     }
 
     //----------------------------------------------------------------------

@@ -11,6 +11,6 @@ public class TransferMoneyRequest {
 
     private String fromIban;
     private String toIban;
-    private Integer amount;
+    private Double amount;
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import ro.itschool.entity.MyUser;
 import ro.itschool.entity.Role;
 import ro.itschool.service.UserService;
+import ro.itschool.util.Constants;
 
 import java.util.Collections;
 
@@ -36,7 +37,7 @@ public class RegisterController {
     public String registerUser(@ModelAttribute("user") @RequestBody MyUser user) {
         if (user.getPassword().equals(user.getPasswordConfirm())) {
 
-            user.setRoles(Collections.singleton(new Role("ROLE_USER")));
+            user.setRoles(Collections.singleton(new Role(Constants.ROLE_USER)));
             userService.saveUser(user);
             return "register-success";
         } else {

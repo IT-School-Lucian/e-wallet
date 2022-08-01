@@ -5,7 +5,7 @@
         <div class="dropdown col-sm-8" id="fromAccount">
             <select class="btn light dropdown-toggle text-center" th:field="*{fromIban}">
                 <option class="dropdown-item text-center" th:each="account : ${accounts}"
-                        th:value="${account}" th:text="${account.iban}">
+                        th:value="${account}" th:text="${account.iban} + '-' +${account.currency}">
                 </option>
             </select>
         </div>
@@ -23,7 +23,7 @@
         <div class="dropdown col-sm-8" id="toAccount">
             <select class="btn light dropdown-toggle text-center" th:field="*{toIban}">
                 <option class="dropdown-item text-center" th:each="account : ${accounts}"
-                        th:value="${account}" th:text="${account.iban}"></option>
+                        th:value="${account}" th:text="${account.iban} + '-' +${account.currency}"></option>
             </select>
         </div>
     </div>

@@ -13,6 +13,7 @@ import ro.itschool.entity.Role;
 import ro.itschool.repository.RoleRepository;
 import ro.itschool.repository.UserRepository;
 import ro.itschool.service.UserService;
+import ro.itschool.util.Constants;
 
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class UserController {
         model.addAttribute("roles", roleRepository.findAll().stream().map(Role::getName).toList());
         model.addAttribute("adminRole", roleRepository.findAll()
                 .stream()
-                .filter(role -> role.getName().equals("ROLE_ADMIN"))
+                .filter(role -> role.getName().equals(Constants.ROLE_ADMIN))
                 .findAny()
                 .orElseThrow(() -> new Exception("User with admin roles not found")));
 
@@ -47,7 +48,7 @@ public class UserController {
     @RequestMapping(path = "/delete/{id}")
     public String deleteUserById(Model model, @PathVariable("id") Long id) {
         userRepository.deleteById(id);
-        return "redirect:/index";
+        return Constants.REDIRECT_TO_INDEX;
     }
 
     //----------ADD ADMIN ROLE TO USER----------------------------------------------
@@ -55,7 +56,7 @@ public class UserController {
     public String addAdminRoleToUser(@PathVariable("id") Long id) {
         final Optional<MyUser> user = userRepository.findById(id);
         if (user.isPresent()) {
-            final Role role = roleRepository.findByName("ROLE_ADMIN");
+            final Role role = roleRepository.findByName(Constants.ROLE_ADMIN);
             user.get().getRoles().add(role);
             userService.updateUser(user.get());
             return "redirect:/users";
@@ -70,7 +71,7 @@ public class UserController {
         String username = getCurrentUserDetails();
         final Optional<MyUser> user = userRepository.findById(id);
         if (user.isPresent()) {
-            final Role role = roleRepository.findByName("ROLE_ADMIN");
+            final Role role = roleRepository.findByName(Constants.ROLE_ADMIN);
             user.get().getRoles().remove(role);
             userService.updateUser(user.get());
             //Check is logged user is the same as selected user

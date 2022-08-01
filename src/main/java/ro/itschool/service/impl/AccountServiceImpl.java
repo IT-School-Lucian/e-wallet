@@ -14,6 +14,7 @@ import ro.itschool.model.TransferMoneyRequest;
 import ro.itschool.repository.AccountRepository;
 import ro.itschool.repository.UserRepository;
 import ro.itschool.service.AccountService;
+import ro.itschool.util.Constants;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -73,8 +74,9 @@ public class AccountServiceImpl implements AccountService {
         if (transferMoneyRequest.getAmount() > fromAccount.getAmount()) {
             throw new NotEnoughMoneyInAccount("Not enough money in account");
         }
+        Double amount = transformCurrency(fromAccount.getCurrency(), toAccount.getCurrency(), transferMoneyRequest.getAmount());
         fromAccount.setAmount(fromAccount.getAmount() - transferMoneyRequest.getAmount());
-        toAccount.setAmount(toAccount.getAmount() + transferMoneyRequest.getAmount());
+        toAccount.setAmount(toAccount.getAmount() + amount);
 
         saveTransactional(fromAccount, toAccount);
     }
@@ -93,5 +95,44 @@ public class AccountServiceImpl implements AccountService {
         bankAccount.setCreatedAt(dateTime);
 
         return bankAccount;
+    }
+
+    private Double transformCurrency(Currency fromCurrency, Currency toCurrency, Double amount) {
+        if (fromCurrency.equals(toCurrency)) {
+            return amount;
+        }
+
+        double globalAmountEUR = amount;
+
+        switch (fromCurrency) {
+            case RON:
+                globalAmountEUR /= Constants.EUR_RON;
+                break;
+            case CHF:
+                globalAmountEUR /= Constants.EUR_CHF;
+                break;
+            case USD:
+                globalAmountEUR /= Constants.EUR_USD;
+                break;
+            case EUR:
+                break;
+        }
+
+        switch (toCurrency) {
+            case RON:
+                globalAmountEUR *= Constants.EUR_RON;
+                break;
+            case CHF:
+                globalAmountEUR *= Constants.EUR_CHF;
+                break;
+            case USD:
+                globalAmountEUR *= Constants.EUR_USD;
+                break;
+            case EUR:
+                break;
+        }
+
+        return globalAmountEUR;
+
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ro.itschool.util.Constants;
 
 @Controller
 public class LoginController {
@@ -17,7 +18,7 @@ public class LoginController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
         }
-        return "redirect:/index";
+        return Constants.REDIRECT_TO_INDEX;
     }
 
     @RequestMapping("/login-error")
