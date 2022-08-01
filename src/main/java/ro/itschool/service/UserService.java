@@ -24,4 +24,6 @@ public interface UserService {
 
     void updateUser(MyUser user);
 
+    List<MyUser> searchUser(String keyword);
+
 }

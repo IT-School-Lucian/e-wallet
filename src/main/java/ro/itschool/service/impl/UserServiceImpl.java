@@ -99,6 +99,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public List<MyUser> searchUser(String keyword) {
+        return userRepository.searchUser(keyword);
+    }
+
 
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();

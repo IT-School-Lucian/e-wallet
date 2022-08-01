@@ -12,7 +12,6 @@ import ro.itschool.entity.Role;
 import ro.itschool.service.UserService;
 
 import java.util.Collections;
-import java.util.Set;
 
 @Controller
 public class RegisterController {

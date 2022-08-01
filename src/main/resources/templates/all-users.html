@@ -11,15 +11,9 @@
 
     <style>
 
-    Body {
-    margin: 0; font-family: "Optima", sans-serif, color: #17202a
-    height: 100%;
+body {
     margin: 0;
-    background-image: linear-gradient(to bottom, #00444e, #274e5b, #415766, #57626e, #6a6d75, #6a6b74, #6a6973, #6b6771, #5e5666, #53455b, #49354f, #3f2442);
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    background-position: center top;
-    background-attachment: fixed;
+    font-family: Arial, Helvetica, sans-serif;
     }
 
 .topnav {
@@ -40,9 +34,48 @@
 .topnav a:hover {
   background-color: #075B67;
   color: #cacfd2;
-  text-decoration: none;
 }
 
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+  .topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;
+  }
+}
     </style>
 
 </head>
@@ -53,8 +86,14 @@
         <a class="/" href="/">Home</a>
         <a href="/index">Index</a>
         <a href="/logout">Logout</a>
-        <a href="#contact">Search</a>
+        <div class="search-container">
+        <form th:action="@{/search}" method="get">
+            <input type="text" name="keyword" th:value="${keyword}" placeholder="Search" size="40" >
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        </div>
     </div>
+
     This content is only shown to administrators.
 
     <div class="container my-2">
