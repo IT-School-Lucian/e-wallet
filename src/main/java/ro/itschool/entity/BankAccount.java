@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.iban4j.CountryCode;
 import org.iban4j.Iban;
+import ro.itschool.model.Bill;
 import ro.itschool.model.Currency;
 
 import java.io.Serial;
@@ -35,6 +36,8 @@ public class BankAccount implements Serializable {
     private Boolean isCredit;
 
     private String iban;
+
+
 
     private LocalDateTime createdAt;
 

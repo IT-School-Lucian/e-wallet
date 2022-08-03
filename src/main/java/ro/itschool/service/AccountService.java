@@ -22,4 +22,6 @@ public interface AccountService {
     List<BankAccount> getAllAccountsByUserId(Long userId);
 
     void transferMoney(TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount;
+
+    void payABill (TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount;
 }

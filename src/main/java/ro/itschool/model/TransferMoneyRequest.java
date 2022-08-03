@@ -13,4 +13,10 @@ public class TransferMoneyRequest {
     private String toIban;
     private Double amount;
 
+
+    public TransferMoneyRequest(String fromIban, Double amount) {
+        this.fromIban = fromIban;
+        this.amount = amount;
+    }
 }
+

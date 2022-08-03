@@ -65,6 +65,26 @@ public class AccountController {
 
     //----------------------------------------------------------------------------------
 
+    //-------------------PAY A BILL-----------------------------------------------------
+    @GetMapping("/modals/pay-a-bill")
+    public String payABill(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final Long userId = userService.findUserByUserName(auth.getName()).getId();
+        model.addAttribute("accounts", accountService.getAllAccountsByUserId(userId));
+        model.addAttribute("payABill", new TransferMoneyRequest());
+        return "pay-a-bill-modal";
+    }
+
+    @PostMapping("/modals/pay-a-bill")
+    public String payABill(@ModelAttribute TransferMoneyRequest payABill) {
+        try {
+            accountService.payABill(payABill);
+        } catch (NotEnoughMoneyInAccount e) {
+            return "not-enough-money";
+        }
+        return Constants.REDIRECT_TO_INDEX;
+    }
+    //----------------------------------------------------------------------------------
 
     //-------------------DELETE ACCOUNT BY ID-------------------------------------------
 
