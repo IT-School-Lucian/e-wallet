@@ -70,6 +70,7 @@ public class RunAtStartup {
 
         saveAdminUser();
         saveAnotherUser();
+        saveAnotherUser2();
 
     }
 
@@ -164,4 +165,49 @@ public class RunAtStartup {
         userService.saveUser(myUser);
     }
 
+
+    private void saveAnotherUser2() {
+
+        MyUser myUser = new MyUser();
+        myUser.setUsername("user3");
+        myUser.setPassword("user3");
+        myUser.setRandomToken("randomToken");
+        final Set<Role> roles = new HashSet<>();
+        roles.add(new Role(Constants.ROLE_USER));
+        myUser.setRoles(roles);
+        myUser.setEnabled(true);
+        myUser.setAccountNonExpired(true);
+        myUser.setAccountNonLocked(true);
+        myUser.setCredentialsNonExpired(true);
+        myUser.setEmail("user223@gmail.com");
+        myUser.setFullName("Stefan Stefanescu");
+        myUser.setPasswordConfirm("user3");
+        myUser.setRandomTokenEmail("randomToken");
+
+
+        Set<BankAccount> accounts = new HashSet<>();
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.setAmount(10000D);
+        bankAccount.setCurrency(Currency.EUR);
+        bankAccount.setIsCredit(true);
+        Iban iban = Iban.random(CountryCode.RO);
+        bankAccount.setUser(myUser);
+        bankAccount.setIban(iban.toString());
+        bankAccount.setCreatedAt(LocalDateTime.now());
+
+        BankAccount bankAccount2 = new BankAccount();
+        bankAccount2.setAmount(24000D);
+        bankAccount2.setCurrency(Currency.CHF);
+        bankAccount2.setIsCredit(false);
+        Iban iban2 = Iban.random(CountryCode.RO);
+        bankAccount2.setUser(myUser);
+        bankAccount2.setIban(iban2.toString());
+        bankAccount2.setCreatedAt(LocalDateTime.now());
+
+        accounts.add(bankAccount);
+        accounts.add(bankAccount2);
+        myUser.setAccounts(accounts);
+
+        userService.saveUser(myUser);
+    }
 }

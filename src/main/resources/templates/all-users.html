@@ -77,6 +77,9 @@ body {
   }
 }
 
+
+
+
     </style>
 
 </head>
@@ -140,7 +143,8 @@ body {
                                             <input class="form-check-input" type="checkbox"
                                                    id="addAdminRole"
                                                    th:value="${user.id}"
-                                                   onclick="addAdminRole()">
+                                                   th:data-admin="${user.id}"
+                                                   th:onclick="addAdminRole(this.getAttribute('data-admin'))">
                                             <label class="form-check-label"
                                                    for="addAdminRole">ROLE_ADMIN</label>
                                         </div>
@@ -162,16 +166,19 @@ body {
 </div>
 
 <script type="text/javascript">
-function addAdminRole() {
+function addAdminRole(id) {
 let output = document.getElementById('addAdminRole');
 output.disabled=true;
-window.location = 'http://localhost:8080/add-admin-role/' + output.value;
+window.location = 'http://localhost:8080/add-admin-role/' + id;
 }
 
 <!--function removeAdminRole() {-->
 <!--let output = document.getElementById('removeAdminRole');-->
 <!--window.location = 'http://localhost:8080/remove-admin-role/' + output.value;-->
 <!--}-->
+
+
+
 
 
 </script>
