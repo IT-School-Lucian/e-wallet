@@ -17,7 +17,7 @@ public class ActivationController {
     UserService userService;
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepository; 
 
     @GetMapping(value = "/activation/{randomToken}")
     public String registerForm(@PathVariable String randomToken, Model model) {
