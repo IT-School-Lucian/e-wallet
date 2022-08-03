@@ -1,36 +1,36 @@
-<form action="#" th:action="@{/modals/pay-a-bill}" th:object="${pay-a-bill}" method="post"
-      xmlns:th="http://www.w3.org/1999/xhtml">
+<form action="#" th:action="@{/modals/pay-a-bill}" th:object="${payABill}" method="post">
 
-  <div class="form-group row">
-    <label class="col-sm-4 col-form-label" for="fromAccount">From: </label>
-    <div class="dropdown col-sm-8" id="fromAccount">
-      <select class="btn light dropdown-toggle text-center" th:field="*{fromIban}">
-        <option class="dropdown-item text-center" th:each="account : ${accounts}"
-                th:value="${account}" th:text="${account.iban}">
-        </option>
-      </select>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="fromAccount">From: </label>
+        <div class="dropdown col-sm-8" id="fromAccount">
+            <select class="btn light dropdown-toggle text-center" th:field="*{fromIban}">
+                <option class="dropdown-item text-center" th:each="account : ${accounts}"
+                        th:value="${account}" th:text="${account.iban}">
+                </option>
+            </select>
+        </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label for="amount" class="col-sm-4 col-form-label">Amount: </label>
-    <div class="col-sm-4">
-      <input type="text" class="form-control" id="amount" th:field="*{amount}">
+    <div class="form-group row">
+        <label for="amount" class="col-sm-4 col-form-label">Amount: </label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="amount" th:field="*{amount}">
+        </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <label class="col-sm-4 col-form-label" for="Bill">Bill: </label>
-    <div class="dropdown col-sm-8" id="bill">
-      <select name="bill" class="btn light dropdown-toggle text-center">
-        <option class="dropdown-item text-center" th:each="bill : ${T(ro.itschool.model.Bill).values()}"
-                th:value="${bill}" th:text="${bill}"></option>
-      </select>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="Bill">Bill: </label>
+        <div class="dropdown col-sm-8" id="bill">
+            <select name="bill" class="btn light dropdown-toggle text-center">
+                <option class="dropdown-item text-center" th:each="bill : ${T(ro.itschool.model.Bill).values()}"
+                        th:value="${bill}" th:text="${bill}"></option>
+            </select>
+        </div>
     </div>
-  </div>
 
-  <div class="col text-center">
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </div>
+    <div class="col text-center">
+        <button type="submit" class="btn btn-primary">Pay</button>
+    </div>
 
+</form>
 </form>

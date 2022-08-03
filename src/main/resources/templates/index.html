@@ -136,13 +136,10 @@
     });
 
     $('#pay-a-bill-modal').on('show.bs.modal', function () {
-        $.get("/pay-a-bill-modal", function (data) {
+        $.get("/modals/pay-a-bill", function (data) {
             $('#pay-a-bill-modal').find('.modal-body').html(data);
         })
     });
-
-
-
 
 </script>
 
