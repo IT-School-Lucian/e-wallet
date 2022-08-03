@@ -1,4 +1,5 @@
-<form action="#" th:action="@{/modals/transfer-money}" th:object="${transferMoneyRequest}" method="post">
+<form action="#" th:action="@{/modals/transfer-money}" th:object="${transferMoneyRequest}" method="post"
+      xmlns:th="http://www.w3.org/1999/xhtml">
 
     <div class="form-group row">
         <label class="col-sm-4 col-form-label" for="fromAccount">From: </label>
@@ -23,7 +24,7 @@
         <div class="dropdown col-sm-8" id="toAccount">
             <select class="btn light dropdown-toggle text-center" th:field="*{toIban}">
                 <option class="dropdown-item text-center" th:each="account : ${accounts}"
-                        th:value="${account}" th:text="${account.iban} + '-' +${account.currency}"></option>
+                        th:text="${account.iban} + '-' +${account.currency}" th:value="${account}"></option>
             </select>
         </div>
     </div>

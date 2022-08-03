@@ -8,6 +8,7 @@ import ro.itschool.entity.BankAccount;
 import ro.itschool.entity.MyUser;
 import ro.itschool.exception.AmountNotEmptyException;
 import ro.itschool.exception.NotEnoughMoneyInAccount;
+import ro.itschool.model.Bill;
 import ro.itschool.model.Currency;
 import ro.itschool.model.TransferMoneyRequest;
 import ro.itschool.repository.AccountRepository;
@@ -79,6 +80,21 @@ public class AccountServiceImpl implements AccountService {
 
         saveTransactional(fromAccount, toAccount);
     }
+
+    @Override
+    public void payABill(TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final MyUser myUser = userRepository.findByUsernameIgnoreCase(auth.getName());
+        BankAccount fromAccount = getBankAccountFromString(transferMoneyRequest.getFromIban());
+        fromAccount.setUser(myUser);
+        if (transferMoneyRequest.getAmount() > fromAccount.getAmount()) {
+            throw new NotEnoughMoneyInAccount("Not enough money in account");
+        }
+        fromAccount.setAmount(fromAccount.getAmount() - transferMoneyRequest.getAmount());
+        accountRepository.save(fromAccount);
+    }
+
+
 
     private BankAccount getBankAccountFromString(String str) {
         BankAccount bankAccount = new BankAccount();

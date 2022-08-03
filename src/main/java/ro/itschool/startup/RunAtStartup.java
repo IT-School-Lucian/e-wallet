@@ -70,7 +70,6 @@ public class RunAtStartup {
 
         saveAdminUser();
         saveAnotherUser();
-
     }
 
     private void saveAdminUser() {
@@ -162,6 +161,9 @@ public class RunAtStartup {
         myUser.setAccounts(accounts);
 
         userService.saveUser(myUser);
+
     }
 
-}
+    }
+
+
