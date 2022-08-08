@@ -17,7 +17,6 @@ import ro.itschool.util.Constants;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -106,7 +105,7 @@ public class AccountServiceImpl implements AccountService {
         final MyUser myUser = userRepository.findByUsernameIgnoreCase(auth.getName());
         BankAccount fromAccount = getBankAccountFromString(transferMoneyRequest.getFromIban());
         fromAccount.setUser(myUser);
-        BankAccount userIban = getBankAccountFromString(transferMoneyRequest.getToIban());
+        BankAccount userIban = accountRepository.findByIban(transferMoneyRequest.getToIban());
         if (myUser.getAccounts().equals(userIban))
             userIban.setUser(myUser);
         if (transferMoneyRequest.getAmount() > fromAccount.getAmount()) {

@@ -114,7 +114,7 @@ public class AccountController {
     @PostMapping("/modals/transfer-money-to-user-iban")
     public String transferMoneyToUserIban(@ModelAttribute TransferMoneyRequest transferMoneyRequest) {
         try {
-            accountService.transferMoney(transferMoneyRequest);
+            accountService.transferMoneyToUserIban(transferMoneyRequest);
         } catch (NotEnoughMoneyInAccount e) {
             return "not-enough-money";
         }
