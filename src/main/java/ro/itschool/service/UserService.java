@@ -1,6 +1,7 @@
 package ro.itschool.service;
 
 import org.springframework.stereotype.Service;
+import ro.itschool.controller.model.MyUserDTO;
 import ro.itschool.entity.MyUser;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface UserService {
 
     boolean findUserByUserNameAndPassword(String userName, String password);
 
-    List<MyUser> findAll();
+    List<MyUserDTO> findAll();
 
     void deleteById(long id);
 
@@ -24,6 +25,6 @@ public interface UserService {
 
     void updateUser(MyUser user);
 
-    List<MyUser> searchUser(String keyword);
+    List<MyUserDTO> searchUser(String keyword);
 
 }

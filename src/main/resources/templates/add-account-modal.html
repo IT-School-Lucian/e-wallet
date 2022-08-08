@@ -12,7 +12,7 @@
         <label class="col-sm-4 col-form-label" for="currency">Currency</label>
         <div class="dropdown col-sm-8" id="currency">
             <select name="currency" class="btn light dropdown-toggle text-center">
-                <option class="dropdown-item text-center" th:each="currency : ${T(ro.itschool.model.Currency).values()}"
+                <option class="dropdown-item text-center" th:each="currency : ${T(ro.itschool.enums.Currency).values()}"
                         th:value="${currency}" th:text="${currency}"></option>
             </select>
         </div>

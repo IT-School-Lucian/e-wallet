@@ -6,8 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.iban4j.CountryCode;
 import org.iban4j.Iban;
-import ro.itschool.model.Bill;
-import ro.itschool.model.Currency;
+import ro.itschool.enums.Currency;
 
 import java.io.Serial;
 import java.io.Serializable;

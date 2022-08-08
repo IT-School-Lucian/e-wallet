@@ -22,7 +22,7 @@
         <label class="col-sm-4 col-form-label" for="Bill">Bill: </label>
         <div class="dropdown col-sm-8" id="bill">
             <select name="bill" class="btn light dropdown-toggle text-center">
-                <option class="dropdown-item text-center" th:each="bill : ${T(ro.itschool.model.Bill).values()}"
+                <option class="dropdown-item text-center" th:each="bill : ${T(ro.itschool.enums.Bill).values()}"
                         th:value="${bill}" th:text="${bill}"></option>
             </select>
         </div>
