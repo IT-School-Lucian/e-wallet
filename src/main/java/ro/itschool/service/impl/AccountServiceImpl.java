@@ -8,7 +8,6 @@ import ro.itschool.entity.BankAccount;
 import ro.itschool.entity.MyUser;
 import ro.itschool.exception.AmountNotEmptyException;
 import ro.itschool.exception.NotEnoughMoneyInAccount;
-import ro.itschool.model.Bill;
 import ro.itschool.enums.Currency;
 import ro.itschool.controller.model.TransferMoneyRequest;
 import ro.itschool.repository.AccountRepository;
