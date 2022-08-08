@@ -100,4 +100,26 @@ public class AccountController {
 
     //----------------------------------------------------------------------
 
+
+    //--------------TRANSFER MONEY TO USER IBAN (MODAL)------------------------------
+    @GetMapping("/modals/transfer-money-to-user-iban")
+    public String transferMoneyToUserIban (Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final Long userId = userService.findUserByUserName(auth.getName()).getId();
+        model.addAttribute("accounts", accountService.getAllAccountsByUserId(userId));
+        model.addAttribute("transferMoneyRequest", new TransferMoneyRequest());
+        return "transfer-money-to-user-iban-modal";
+    }
+
+    @PostMapping("/modals/transfer-money-to-user-iban")
+    public String transferMoneyToUserIban(@ModelAttribute TransferMoneyRequest transferMoneyRequest) {
+        try {
+            accountService.transferMoney(transferMoneyRequest);
+        } catch (NotEnoughMoneyInAccount e) {
+            return "not-enough-money";
+        }
+        return Constants.REDIRECT_TO_INDEX;
+    }
+
+    //----------------------------------------------------------------------------------
 }
