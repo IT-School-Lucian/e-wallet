@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ro.itschool.entity.BankAccount;
 import ro.itschool.exception.AmountNotEmptyException;
 import ro.itschool.exception.NotEnoughMoneyInAccount;
-import ro.itschool.model.TransferMoneyRequest;
+import ro.itschool.controller.model.TransferMoneyRequest;
 
 import java.util.List;
 

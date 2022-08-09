@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ro.itschool.controller.mapper.MyUserMapper;
+import ro.itschool.controller.model.MyUserDTO;
 import ro.itschool.entity.MyUser;
 import ro.itschool.entity.Role;
 import ro.itschool.repository.AccountRepository;
@@ -58,8 +60,8 @@ public class UserServiceImpl implements UserService {
         return myUser.filter(user -> BCrypt.checkpw(password, user.getPassword())).isPresent();
     }
 
-    public List<MyUser> findAll() {
-        return userRepository.findAll();
+    public List<MyUserDTO> findAll() {
+        return userRepository.findAll().stream().map(MyUserMapper::convertToDTO).toList();
     }
 
     public void deleteById(long id) {
@@ -100,8 +102,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<MyUser> searchUser(String keyword) {
-        return userRepository.searchUser(keyword);
+    public List<MyUserDTO> searchUser(String keyword) {
+        return userRepository.searchUser(keyword).stream().map(MyUserMapper::convertToDTO).toList();
+
     }
 
 

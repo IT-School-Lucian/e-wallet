@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import ro.itschool.entity.BankAccount;
 import ro.itschool.entity.MyUser;
 import ro.itschool.entity.Role;
-import ro.itschool.model.Currency;
+import ro.itschool.enums.Currency;
 import ro.itschool.service.UserService;
 import ro.itschool.util.Constants;
 

@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import ro.itschool.controller.model.MyUserDTO;
 import ro.itschool.entity.MyUser;
 import ro.itschool.entity.Role;
 import ro.itschool.repository.RoleRepository;
@@ -15,6 +17,7 @@ import ro.itschool.repository.UserRepository;
 import ro.itschool.service.UserService;
 import ro.itschool.util.Constants;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,10 +37,11 @@ public class UserController {
     @GetMapping("/users")
     public String getAllUsers(Model model, String keyword) throws Exception {
         model.addAttribute("users", userService.searchUser(keyword));
-        model.addAttribute("roles", roleRepository.findAll().stream().map(Role::getName).toList());
+//        model.addAttribute("roles", roleRepository.findAll().stream().map(Role::getName).toList());
         model.addAttribute("adminRole", roleRepository.findAll()
                 .stream()
-                .filter(role -> role.getName().equals(Constants.ROLE_ADMIN))
+                .map((Role::getName))
+                .filter(role -> role.equals(Constants.ROLE_ADMIN))
                 .findAny()
                 .orElseThrow(() -> new Exception("User with admin roles not found")));
 
@@ -91,4 +95,12 @@ public class UserController {
         return loggedInUser.getName();
     }
 
+
+    //POSTMAN GET ALL USERS
+    @GetMapping("/users/postman")
+    @ResponseBody
+    public List<MyUserDTO> getAllUsersForPostman() {
+        return userService.findAll();
+
+    }
 }

@@ -1,4 +1,4 @@
-package ro.itschool.model;
+package ro.itschool.controller.model;
 
 import lombok.*;
 
