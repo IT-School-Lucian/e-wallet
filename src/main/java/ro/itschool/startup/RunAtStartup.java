@@ -45,7 +45,7 @@ public class RunAtStartup {
 
         Set<BankAccount> accounts = new HashSet<>();
         BankAccount bankAccount = new BankAccount();
-        bankAccount.setAmount(12000D);
+        bankAccount.setAmount(12D);
         bankAccount.setCurrency(Currency.EUR);
         bankAccount.setIsCredit(true);
         Iban iban = Iban.random(CountryCode.RO);
@@ -54,7 +54,7 @@ public class RunAtStartup {
         bankAccount.setCreatedAt(LocalDateTime.now());
 
         BankAccount bankAccount2 = new BankAccount();
-        bankAccount2.setAmount(11000D);
+        bankAccount2.setAmount(11D);
         bankAccount2.setCurrency(Currency.CHF);
         bankAccount2.setIsCredit(false);
         Iban iban2 = Iban.random(CountryCode.RO);
@@ -68,9 +68,9 @@ public class RunAtStartup {
 
         userService.saveUser(myUser);
 
-        saveAdminUser();
-        saveAnotherUser();
-        saveAnotherUser2();
+//        saveAdminUser();
+//        saveAnotherUser();
+//        saveAnotherUser2();
 
     }
 
