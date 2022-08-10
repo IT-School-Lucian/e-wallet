@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ContactController {
 
     @RequestMapping(value = {"/contact"})
-    public String logout(){
+    public String contact(){
         return "contact.html";
     }
 }

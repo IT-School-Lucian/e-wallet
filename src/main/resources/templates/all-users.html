@@ -13,18 +13,20 @@
     <link th:href="@{/css/topnav.css}" rel="stylesheet"/>
 
     <style>
-.active-black-2 input.form-control[type=text]:focus:not([readonly]) {
-  border-bottom: 1px solid #ce93d8;
-  box-shadow: 0 1px 0 0 #ce93d8;
+.container{
+    margin-top:0px;
 }
-.active-black input.form-control[type=text] {
-  border-bottom: 1px solid #ce93d8;
-  box-shadow: 0 1px 0 0 #ce93d8;
+.btn:hover{
+    color:white;
 }
-.active-black .fa, .active-black-2 .fa {
-  color: #ce93d8;
+.input-text:focus{
+    box-shadow: 0px 0px 0px;
+    border-color:#343a40!important;
+    outline: 0px;
 }
-
+.form-control {
+    border: 1px solid #343a40!important;
+}
     </style>
 </head>
 <body>
@@ -38,12 +40,19 @@
         <div class="card ">
             <div class="card-body">
                 <div th:switch="${users}" class="container my-5">
-                    <div class="col-md-6">
-                            <form th:action="@{/users}" method="get"
-                                class="form-inline d-flex justify-content-center md-form form-sm active-black active-black-2 mt-2">
-                                <i class="fas fa-search" aria-hidden="true"></i>
-                                <input class="form-control-sm ml-3 w-75" type="text" name="keyword"
-                                       th:value="${keyword}" placeholder="Search" aria-label="Search">
+                    <div class="col-md-10">
+                        <div class="search-container">
+                            <form th:action="@{/users}" method="get">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="keyword" th:value="${keyword}" class="form-control input-text" placeholder="Search"  aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-dark btn-md" type="submit"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div th:case="*">
