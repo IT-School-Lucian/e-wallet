@@ -36,8 +36,6 @@ public class BankAccount implements Serializable {
 
     private String iban;
 
-
-
     private LocalDateTime createdAt;
 
     @ManyToOne
