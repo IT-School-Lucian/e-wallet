@@ -46,9 +46,12 @@
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="input-group mb-3">
-                                            <input type="text" name="keyword" th:value="${keyword}" class="form-control input-text" placeholder="Search"  aria-describedby="basic-addon2">
+                                            <input type="text" name="keyword" th:value="${keyword}"
+                                                   class="form-control input-text" placeholder="Search"
+                                                   aria-describedby="basic-addon2">
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-dark btn-md" type="submit"><i class="fa fa-search"></i></button>
+                                                <button class="btn btn-outline-dark btn-md" type="submit"><i
+                                                        class="fa fa-search"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +118,52 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <th:block th:replace="_modals :: modal('add-account-modal')">Add new account</th:block>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <th:block th:replace="_modals :: modal('transfer-money-modal')">Transfer money internal</th:block>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <th:block th:replace="_modals :: modal('pay-a-bill-modal')">Pay a bill</th:block>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <th:block th:replace="_modals :: modal('transfer-money-to-user-iban-modal')">Transfer money to user IBAN
+                </th:block>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <th:block th:replace="_modals :: modal('transfer-money-to-user-iban-modal')">Transfer money to user IBAN
+                </th:block>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+
 </div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 <script type="text/javascript">
 function addAdminRole(id) {
@@ -129,6 +177,32 @@ window.location = 'http://localhost:8080/add-admin-role/' + id;
 <!--window.location = 'http://localhost:8080/remove-admin-role/' + output.value;-->
 <!--}-->
 
+</script>
+
+<script>
+    $('#add-account-modal').on('show.bs.modal', function () {
+        $.get("/modals/add-bank-account", function (data) {
+            $('#add-account-modal').find('.modal-body').html(data);
+        })
+    });
+
+    $('#transfer-money-modal').on('show.bs.modal', function () {
+        $.get("/modals/transfer-money", function (data) {
+            $('#transfer-money-modal').find('.modal-body').html(data);
+        })
+    });
+
+    $('#pay-a-bill-modal').on('show.bs.modal', function () {
+        $.get("/modals/pay-a-bill", function (data) {
+            $('#pay-a-bill-modal').find('.modal-body').html(data);
+        })
+    });
+
+  $('#transfer-money-to-user-iban-modal').on('show.bs.modal', function () {
+        $.get("/modals/transfer-money-to-user-iban", function (data) {
+            $('#transfer-money-to-user-iban-modal').find('.modal-body').html(data);
+        })
+    });
 
 </script>
 </body>
