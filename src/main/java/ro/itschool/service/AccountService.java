@@ -24,4 +24,6 @@ public interface AccountService {
     void transferMoney(TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount;
 
     void payABill (TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount;
+
+    void transferMoneyToUserIban(TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount;
 }

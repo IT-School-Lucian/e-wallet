@@ -78,7 +78,7 @@ public class UserController {
             final Role role = roleRepository.findByName(Constants.ROLE_ADMIN);
             user.get().getRoles().remove(role);
             userService.updateUser(user.get());
-            //Check is logged user is the same as selected user
+            //Check if logged user is the same as selected user
             if (username.equals(user.get().getUsername()))
                 return "redirect:/logout";
             else

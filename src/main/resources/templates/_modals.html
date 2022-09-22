@@ -16,13 +16,16 @@
                 <div th:if="${id} == add-account-modal">
                     <h4 class="modal-title"><b>Add new account</b></h4>
                 </div>
+
                 <div th:if="${id} == transfer-money-modal">
                     <h4 class="modal-title"><b>Transfer money</b></h4>
                 </div>
                 <div th:if="${id} == pay-a-bill-modal">
                     <h4 class="modal-title"><b>Pay a bill</b></h4>
                 </div>
-
+                <div th:if="${id} == transfer-money-to-user-iban-modal">
+                    <h4 class="modal-title"><b>Transfer money to user IBAN</b></h4>
+                </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

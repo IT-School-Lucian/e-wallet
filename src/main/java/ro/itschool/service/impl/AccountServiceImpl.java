@@ -94,6 +94,29 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
+    private void saveTransactional1(BankAccount fromAccount, BankAccount userIban) {
+        accountRepository.save(fromAccount);
+        accountRepository.save(userIban);
+    }
+
+    @Override
+    public void transferMoneyToUserIban(TransferMoneyRequest transferMoneyRequest) throws NotEnoughMoneyInAccount {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final MyUser myUser = userRepository.findByUsernameIgnoreCase(auth.getName());
+        BankAccount fromAccount = getBankAccountFromString(transferMoneyRequest.getFromIban());
+        fromAccount.setUser(myUser);
+        BankAccount userIban = accountRepository.findByIban(transferMoneyRequest.getToIban());
+        if (myUser.getAccounts().equals(userIban))
+            userIban.setUser(myUser);
+        if (transferMoneyRequest.getAmount() > fromAccount.getAmount()) {
+            throw new NotEnoughMoneyInAccount("Not enough money in account");
+        }
+        Double amount = transformCurrency(fromAccount.getCurrency(), userIban.getCurrency(), transferMoneyRequest.getAmount());
+        fromAccount.setAmount(fromAccount.getAmount() - transferMoneyRequest.getAmount());
+        userIban.setAmount(userIban.getAmount() + amount);
+
+        saveTransactional1(fromAccount, userIban);
+    }
 
     private BankAccount getBankAccountFromString(String str) {
         BankAccount bankAccount = new BankAccount();
