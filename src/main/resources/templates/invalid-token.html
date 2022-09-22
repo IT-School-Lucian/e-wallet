@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
     <meta charset="UTF-8">
     <title>Invalid Register Token</title>
@@ -14,14 +15,34 @@
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
     <style>
-.alert i[class^="bi-"]{
-  font-size: 1.5em;
-  line-height: 1;
+    .alert i[class^="bi-"]{
+    font-size: 1.5em;
+    line-height: 1;
+    }
+
+    body {background-color: #E9DCC9;
 }
 
+    .card text-center {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+}
     </style>
 
-    <script>
+</head>
+<body>
+<br>
+<br>
+<div class="card text-center col-lg-6 col-md-6 col-sm-6 container justify-content-center card" style="align center">
+    <h5 class="card-header">Invalid Token</h5>
+    <div class="card-body">
+        <meta http-equiv="refresh" content="http://localhost:8080/login"/>
+        <div><h5 class="card-title">You will be redirected in <span id="counter">3</span> seconds</h5></div>
+    </div>
+</div>
+
+<script>
         setInterval(function() {
             var div = document.querySelector("#counter");
             var count = div.textContent * 1 - 1;
@@ -31,32 +52,7 @@
             }
         }, 1000);
 
-    </script>
-</head>
-<body>
-<div class="row">
-
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <div class="box-footer text-center">
-            <meta http-equiv="refresh" content="http://localhost:8080/login"/>
-            <div class="alert alert-danger  align-items-center fade show" role="alert">
-                <div class="font-weight-bold">Invalid Token</div>
-            </div>
-            <div class="spinner-grow text-danger text-center" role="status">
-                <span class="visually-hidden"></span>
-            </div>
-            <div class="spinner-grow text-danger text-center" role="status">
-                <span class="visually-hidden"></span>
-            </div>
-            <div class="spinner-grow text-danger text-center" role="status">
-                <span class="visually-hidden"></span>
-            </div>
-            <div> You will be redirected in <span id="counter">3</span> seconds</div>
-        </div>
-    </div>
-    <div class="col-md-3"></div>
-</div>
+</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

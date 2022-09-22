@@ -93,11 +93,8 @@ public class UserServiceImpl implements UserService {
 
     public void updateUser(MyUser user) {
         List<GrantedAuthority> actualAuthorities = getUserAuthority(user.getRoles());
-
         Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), actualAuthorities);
-
         SecurityContextHolder.getContext().setAuthentication(newAuth);
-
         userRepository.save(user);
     }
 

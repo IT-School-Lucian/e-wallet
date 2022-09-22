@@ -92,8 +92,15 @@
         </div>
     </div>
 </div>
-<div class="col-md-1"></div>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <th:block th:replace="_modals :: modal('transfer-money-to-user-iban-modal')">Transfer money to user IBAN</th:block>
+        </div>
+    </div>
 </div>
+<div class="col-md-1"></div>
+
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
