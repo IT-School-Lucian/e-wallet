@@ -21,6 +21,7 @@ import java.util.Set;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class MyUser implements UserDetails {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -56,7 +57,6 @@ public class MyUser implements UserDetails {
     @Transient
     private String randomTokenEmail;
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
@@ -71,7 +71,6 @@ public class MyUser implements UserDetails {
 
     @Transient
     private List<GrantedAuthority> authorities = null;
-
 
     public MyUser(MyUser myUser) {
         this.enabled = myUser.isEnabled();
@@ -96,17 +95,12 @@ public class MyUser implements UserDetails {
         this.authorities = authorities;
     }
 
-
     public Long getId() {
         return id;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return this.authorities;
-//        return getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
-//                .collect(Collectors.toList());
     }
 }

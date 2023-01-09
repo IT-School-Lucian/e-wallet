@@ -93,7 +93,6 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(fromAccount);
     }
 
-
     private void saveTransactional1(BankAccount fromAccount, BankAccount userIban) {
         accountRepository.save(fromAccount);
         accountRepository.save(userIban);

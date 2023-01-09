@@ -1,17 +1,28 @@
 package ro.itschool.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ro.itschool.entity.Contact;
+import ro.itschool.entity.MyUser;
 import ro.itschool.repository.ContactRepository;
+import ro.itschool.repository.UserRepository;
+import ro.itschool.service.UserService;
 
 @Controller
 public class ContactController {
 
     @Autowired
     ContactRepository contactRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/contact-message")
     public String getContact(Model model, String keyword) {
@@ -25,11 +36,15 @@ public class ContactController {
         return "contact";
     }
 
+    //TODO
     @PostMapping("/contact")
-    public String saveContact2(@ModelAttribute Contact contact, Model model) {
+    public String saveContact2(@ModelAttribute Contact contact, Model model, MyUser user) throws Exception {
         model.addAttribute("contactObject", contact);
-        contactRepository.save(contact);
-        return "redirect:/contact";
+        if (contact.getUsername().equals((user.getUsername()))){
+            contactRepository.save(contact);
+            return "redirect:/contact";
+        } else
+            throw new Exception("Wrong username");
     }
 
     @RequestMapping(path = "/delete-contact/{id}")

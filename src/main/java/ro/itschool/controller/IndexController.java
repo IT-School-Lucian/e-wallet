@@ -20,5 +20,4 @@ public class IndexController {
         model.addAttribute("accounts", userService.findUserByUserName(auth.getName()).getAccounts());
         return "index";
     }
-
 }

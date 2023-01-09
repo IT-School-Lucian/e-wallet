@@ -4,39 +4,34 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import ro.itschool.service.impl.CustomUserDetailsService;
 
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authenticationProvider(authenticationProvider())
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/users/postman", "/login", "/register", "/activation/**", "/activation-success").permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers("/users/postman", "/login", "/register", "/activation/**", "/activation-success").permitAll()
                 .anyRequest()
                 .authenticated()
-                .and()
-                .formLogin()
+                .and().formLogin()
                 .loginPage("/login")
                 .failureUrl("/login-error")
-                .defaultSuccessUrl("/index")
-                .and()
-                .logout()
-                .logoutSuccessUrl("/login")
-                .and()
+                .defaultSuccessUrl("/index").and()
+                .logout().logoutSuccessUrl("/login").and()
                 .sessionManagement()
                 .maximumSessions(1);
-
         http.headers().frameOptions().sameOrigin();
-
         return http.build();
     }
-
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

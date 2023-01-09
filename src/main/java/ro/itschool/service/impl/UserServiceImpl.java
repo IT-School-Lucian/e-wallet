@@ -25,8 +25,10 @@ import java.util.*;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     EmailBodyService emailBodyService;
@@ -36,12 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     AccountRepository accountRepository;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
 
     public MyUser findUserByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -104,7 +100,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();
         for (Role role : userRoles) {
@@ -114,5 +109,3 @@ public class UserServiceImpl implements UserService {
     }
 
 }
-
-

@@ -13,9 +13,6 @@ public class MyUserMapper {
         myUserDTO.setEmail(myUser.getEmail());
         myUserDTO.setFullName(myUser.getFullName());
 
-//        myUserDTO.setRoles(myUser.getRoles().stream()
-//                .map(role -> role.getName().substring(5))
-//                .toList());
 
         myUserDTO.setRoles(myUser.getRoles().stream()
                 .map(Role::getName)

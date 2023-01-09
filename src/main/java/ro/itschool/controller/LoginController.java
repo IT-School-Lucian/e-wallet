@@ -11,7 +11,6 @@ import ro.itschool.util.Constants;
 @Controller
 public class LoginController {
 
-    // Login form
     @RequestMapping(value = {"/login", "/"})
     public String login() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

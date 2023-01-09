@@ -23,5 +23,4 @@ public class EmailSenderImpl implements EmailSender {
 
         System.out.println("Email Sent Successfully");
     }
-
 }

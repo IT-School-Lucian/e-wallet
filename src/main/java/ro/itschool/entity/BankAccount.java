@@ -49,5 +49,4 @@ public class BankAccount implements Serializable {
         this.amount = 0D;
     }
 
-
 }

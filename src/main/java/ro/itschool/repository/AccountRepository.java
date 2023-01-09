@@ -20,4 +20,3 @@ public interface AccountRepository extends JpaRepository<BankAccount, UUID> {
             nativeQuery = true)
     List<BankAccount> findByUserId(Long userId);
 }
-

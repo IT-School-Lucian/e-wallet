@@ -23,7 +23,6 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
-
     //--------------SAVE DATA FROM MODAL (NEW BANK ACCOUNT)------------------
     @GetMapping("/modals/add-bank-account")
     public String addAccount(Model model) {
@@ -40,7 +39,6 @@ public class AccountController {
         accountService.save(account);
         return Constants.REDIRECT_TO_INDEX;
     }
-
     //----------------------------------------------------------------------------------
 
     //--------------TRANSFER MONEY (MODAL)------------------------------
@@ -62,7 +60,6 @@ public class AccountController {
         }
         return Constants.REDIRECT_TO_INDEX;
     }
-
     //----------------------------------------------------------------------------------
 
     //-------------------PAY A BILL-----------------------------------------------------
@@ -87,7 +84,6 @@ public class AccountController {
     //----------------------------------------------------------------------------------
 
     //-------------------DELETE ACCOUNT BY ID-------------------------------------------
-
     @RequestMapping(value = "/account/delete/{iban}")
     public String deleteAccount(@PathVariable String iban) {
         try {
@@ -97,7 +93,6 @@ public class AccountController {
         }
         return Constants.REDIRECT_TO_INDEX;
     }
-
     //----------------------------------------------------------------------
 
 
@@ -121,5 +116,4 @@ public class AccountController {
         return Constants.REDIRECT_TO_INDEX;
     }
 
-    //----------------------------------------------------------------------------------
 }

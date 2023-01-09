@@ -11,7 +11,6 @@ import lombok.Setter;
 
 import java.util.Set;
 
-
 @Entity
 @Getter
 @Setter
@@ -29,7 +28,6 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
     private Set<MyUser> users;
 
     public Role(String name) {

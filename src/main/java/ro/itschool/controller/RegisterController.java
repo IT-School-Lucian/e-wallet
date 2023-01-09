@@ -27,16 +27,13 @@ public class RegisterController {
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         user.setEnabled(false);
-
         model.addAttribute("user", user);
-
         return "register";
     }
 
     @PostMapping(value = "/register")
     public String registerUser(@ModelAttribute("user") @RequestBody MyUser user) {
         if (user.getPassword().equals(user.getPasswordConfirm())) {
-
             user.setRoles(Collections.singleton(new Role(Constants.ROLE_USER)));
             userService.saveUser(user);
             return "register-success";

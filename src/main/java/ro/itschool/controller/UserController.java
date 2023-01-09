@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping("/users")
     public String getAllUsers(Model model, String keyword) throws Exception {
         model.addAttribute("users", userService.searchUser(keyword));
-//        model.addAttribute("roles", roleRepository.findAll().stream().map(Role::getName).toList());
+     //   model.addAttribute("roles", roleRepository.findAll().stream().map(Role::getName).toList());
         model.addAttribute("adminRole", roleRepository.findAll()
                 .stream()
                 .map((Role::getName))
