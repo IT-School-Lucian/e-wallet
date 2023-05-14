@@ -14,7 +14,7 @@
     <name>e-wallet</name>
     <description>E-Wallet Project</description>
     <properties>
-        <java.version>18</java.version>
+        <java.version>20</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -83,6 +83,11 @@
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
             <version>0.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.0.4</version>
         </dependency>
 
     </dependencies>
